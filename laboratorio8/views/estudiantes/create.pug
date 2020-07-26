@@ -1,0 +1,26 @@
+extends ../layout
+
+block content
+    a(href='/estudiantes') Volver
+
+    br
+    br
+    br
+
+    h1 Nuevo Estudiante
+
+    br
+    br
+
+    form(action='/estudiantes/create' method='post')
+        label(for='id') ID:
+        input#id(type='text' name='id')
+        br
+        label(for='nombre') Nombre:
+        input#nombre(type='text' name='nombre')
+        br
+        label(for='edad') Edad:
+        input#edad(type='text' name='edad')
+        br
+        br
+        input.btn(type='submit' value='ok')
