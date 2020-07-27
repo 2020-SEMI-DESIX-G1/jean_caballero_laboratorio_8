@@ -19,9 +19,6 @@ app.set('views', './views');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
-
-// Controladores - Views
-
 //Mostrar estudiantes
 app.get('/estudiantes', async(req, res) => {
     const estudiantes = await Estudiantes.find().select('nombre edad');
@@ -46,17 +43,17 @@ app.post('/estudiantes', async(req, res) => {
     res.render('estudiantes', { estudiantes });
 });
 
-//Modificar
+//UPDATE Y DELETE
 app.post('/estudiantes/:id', async(req, res) => {
 
-    if (req.body.button_1) {
+    if (req.body.btn_update) {
         const { nombre, edad } = req.body;
         await Estudiantes.findById(req.params.id).update({ nombre, edad });
         const estudiantes = await Estudiantes.find().select('nombre edad');
         res.redirect('/estudiantes');
     }
 
-    if (req.body.button_2) {
+    if (req.body.btn_delete) {
         await Estudiantes.findByIdAndDelete(req.params.id);
         const estudiantes = await Estudiantes.find().select('nombre edad');
         res.redirect('/estudiantes');
@@ -71,11 +68,13 @@ app.get('/api/estudiantes/', async(req, res) => {
         cantidad: estudiantes.length
     });
 });
+
 app.post('/api/estudiantes/', async(req, res) => {
     const { nombre, edad } = req.body;
     await Estudiantes.create({ nombre, edad });
     res.json({ nombre, edad });
 });
+
 app.get('/api/estudiantes/:id', async(req, res) => {
     try {
 
@@ -88,7 +87,7 @@ app.get('/api/estudiantes/:id', async(req, res) => {
     }
 });
 
-app.put('/api/estudiantes/:id', async(req, res) => {
+app.put('/api/estudiantes:id', async(req, res) => {
 
     const { nombre, edad } = req.body;
     await Estudiantes.findByIdAndUpdate(req.params.id, { nombre, edad });

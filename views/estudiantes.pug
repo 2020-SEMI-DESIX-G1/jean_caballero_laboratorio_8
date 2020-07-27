@@ -1,26 +1,32 @@
 extends layout
 
 block content
-        h1 Estudiantes
+        h1  Crear Estudiantes
         form(method="post")
-            label(for="nombre") Nombre: 
-            input(name="nombre", type="text")
+            label(for="nombre" class='col-md-1') Nombre: 
+            input(name="nombre", type="text" class='col-md-3')
             br
-            label(for="edad") Edad: 
-            input(name="edad", type="text")
+            label(for="edad" class='col-md-1') Edad: 
+            input(name="edad", type="text" class='col-md-3')
             br
-            button(type="submit") Guardar
-        
+            button(type="submit" class='btn btn-primary pb-1 ml-3') Guardar
         br
-        br
+        h2(class='text-center') Listado de Estudiantes
         table.table
             thead
                 tr
                     th(scope='col') Nombre
                     th(scope='col') Edad
+                    th(scope='col') Editar
+                    th(scope='col') Eliminar
             tbody
                 each estudiante in estudiantes
                     tr
                         td 
                             a(href='/estudiantes/' + estudiante._id) #{estudiante.nombre}
                         td #{estudiante.edad}
+                        td
+                            a(href= 'estudiantes/' + estudiante._id class='btn btn-inline-secondary') Editar
+                        td
+                            form(method="post" action='estudiantes/' + estudiante._id)
+                                input(class='btn btn-danger' type='submit' value="Eliminar" name='btn_delete')
